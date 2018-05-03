@@ -2,7 +2,7 @@
 <html>
 <head>
 <script>
-function computerPlay() {
+	function computerPlay() {
 		let rand = Math.floor(Math.random() * 3);
 		if (rand == 0) {
 			return "rock";
@@ -16,8 +16,8 @@ function computerPlay() {
 		playerSelection = playerSelection.toLowerCase();
 		let response;
 
-		if (!(playerSelection == "rock" || playerSelection == "paper" || playerSelection == "scissors")) {
-			return "Invalid move! (Please enter rock, paper, or scissors)"
+		if (!(playerSelection == "rock" || playerSelection == "paper" || playerSelection == "scissors") || !(computerSelection == "rock" || computerSelection == "paper" || computerSelection == "scissors")) {
+			return "Invalid move! (Please enter rock, paper, or scissors)";
 		}
 		if ((playerSelection == "rock" && computerSelection == "paper") || (playerSelection == "paper" && computerSelection == "scissors") || (playerSelection == "scissors" && computerSelection == "rock")) {
 			response = `You lose! ${computerSelection} beats ${playerSelection}.`;
@@ -27,6 +27,16 @@ function computerPlay() {
 			response = `It's a draw! ${playerSelection} is the same as ${computerSelection}.`;
 		}
 		return response;
+	}
+
+	function game() {
+		let playerScore = 0;
+		let computerScore = 0;
+		let gameNumber = 1;
+		result = playRound(window.prompt(`Game ${gameNumber}: Enter your move`),computerPlay());
+		function updateScore() {
+			
+		}
 	}
 </script>
 </head>
