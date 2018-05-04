@@ -20,22 +20,57 @@
 			return "Invalid move! (Please enter rock, paper, or scissors)";
 		}
 		if ((playerSelection == "rock" && computerSelection == "paper") || (playerSelection == "paper" && computerSelection == "scissors") || (playerSelection == "scissors" && computerSelection == "rock")) {
-			response = `You lose! ${computerSelection} beats ${playerSelection}.`;
+			response = 0;
 		} else if ((playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissors" && computerSelection == "paper")) {
-			response = `You win! ${playerSelection} beats ${computerSelection}.`;
+			response = 1;
 		} else {
-			response = `It's a draw! ${playerSelection} is the same as ${computerSelection}.`;
+			response = 2;
 		}
 		return response;
 	}
+	function updateScore() {
+		switch (result) {
+			case 0:
+				++computerScore;
+				++gameNumber;
+				roundResult = (`You lose! ${computerSelection} beats ${playerSelection}.`);
+				break;
+			case 1:
+				++playerScore;
+				++gameNumber;
+				roundResult = (`You win! ${playerSelection} beats ${computerSelection}.`);
+				break;
+			case 2:
+				++gameNumber;
+				roundResult = (`It's a draw! ${playerSelection} is the same as ${computerSelection}.`);
+				break;
+			default:
+				roundResult = ("Invalid move! (Please enter rock, paper, or scissors)");
+				return roundResult;
+			}
+		return roundResult + ` Score: Player - ${playerScore} Computer - ${computerScore}`;
+	}
+	function game(rounds = 5) {
+		playerScore = 0;
+		computerScore = 0;
+		gameNumber = 1;
 
-	function game() {
-		let playerScore = 0;
-		let computerScore = 0;
-		let gameNumber = 1;
-		result = playRound(window.prompt(`Game ${gameNumber}: Enter your move`),computerPlay());
-		function updateScore() {
-			
+		while (gameNumber <= rounds ) {
+			playerSelection = window.prompt(`Game ${gameNumber}: Enter your move`);
+			computerSelection = computerPlay();
+			result = playRound(playerSelection,computerSelection);
+			roundResult = updateScore();
+			console.log(roundResult);
+		}
+
+		if (playerScore > computerScore) {
+			return `You win! Final Score: Player - ${playerScore} Computer ${computerScore}`;
+		}
+		else if (playerScore < computerScore) {
+			return `You lose. Final Score: Player - ${playerScore} Computer ${computerScore}`
+		}
+		else {
+			return `Draw! Final Score: Player - ${playerScore} Computer ${computerScore}`
 		}
 	}
 </script>
